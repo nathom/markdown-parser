@@ -9,7 +9,7 @@ public class MarkdownParse {
 
   public static ArrayList<String> getLinks(String markdown) {
     ArrayList<String> toReturn = new ArrayList<>();
-    // find the next [, then find the ], then find the (, then read link upto next )
+    // find the next [, then find the ], then find the (, then read link up to next )
     int currentIndex = 0;
     while (currentIndex < markdown.length()) {
       int bang = markdown.indexOf("!", currentIndex);
@@ -19,8 +19,14 @@ public class MarkdownParse {
       int closeParen = markdown.indexOf(")", openParen);
       if (openBracket == -1 || closeBracket == -1 || openParen == -1 || closeParen == -1) break;
       // If there was a "!" before the openBracket, then skip adding to the list
-      if (bang == -1 || bang != openBracket - 1)
+      if ((bang == -1 || bang != openBracket - 1) && closeBracket == openParen - 1) {
         toReturn.add(markdown.substring(openParen + 1, closeParen));
+
+        System.out.println(openParen);
+        System.out.println(closeParen);
+        System.out.println(openBracket);
+        System.out.println(closeBracket);
+      }
       currentIndex = closeParen + 1;
     }
 
@@ -32,5 +38,6 @@ public class MarkdownParse {
     String content = Files.readString(fileName);
     ArrayList<String> links = getLinks(content);
     System.out.println(links);
+    System.out.println(links.size());
   }
 }
