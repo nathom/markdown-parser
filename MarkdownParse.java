@@ -21,11 +21,6 @@ public class MarkdownParse {
       // If there was a "!" before the openBracket, then skip adding to the list
       if ((bang == -1 || bang != openBracket - 1) && closeBracket == openParen - 1) {
         toReturn.add(markdown.substring(openParen + 1, closeParen));
-
-        System.out.println(openParen);
-        System.out.println(closeParen);
-        System.out.println(openBracket);
-        System.out.println(closeBracket);
       }
       currentIndex = closeParen + 1;
     }
