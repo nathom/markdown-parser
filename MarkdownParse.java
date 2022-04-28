@@ -18,8 +18,15 @@ public class MarkdownParse {
       int openParen = markdown.indexOf("(", closeBracket);
       int closeParen = markdown.indexOf(")", openParen);
       if (openBracket == -1 || closeBracket == -1 || openParen == -1 || closeParen == -1) break;
+
+      // If the closing bracket is not before the opening bracket,
+      // skip the pair
+      if (closeBracket != openParen - 1) {
+        currentIndex = closeBracket + 1;
+        continue;
+      }
       // If there was a "!" before the openBracket, then skip adding to the list
-      if ((bang == -1 || bang != openBracket - 1) && closeBracket == openParen - 1) {
+      if (bang == -1 || bang != openBracket - 1) {
         toReturn.add(markdown.substring(openParen + 1, closeParen));
       }
       currentIndex = closeParen + 1;
