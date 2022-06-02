@@ -1,4 +1,10 @@
-libs = lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar:.
+libs = lib/*:.
+
+try: TryCommonMark.class
+	java -cp $(libs) TryCommonMark
+
+TryCommonMark.class: TryCommonMark.java
+	javac -cp $(libs) $<
 
 test: MarkdownParseTest.class MarkdownParse.class
 	java -cp $(libs) org.junit.runner.JUnitCore MarkdownParseTest
